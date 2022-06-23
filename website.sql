@@ -122,6 +122,16 @@ CREATE TABLE `syy_leaders` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='领导团队';
 
+DROP TABLE IF EXISTS `syy_leader_news`;
+CREATE TABLE `syy_leader_news` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT, 
+  `content` text not null comment '内容',
+  `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='领导团队新';
+
 DROP TABLE IF EXISTS `syy_cultures`;
 CREATE TABLE `syy_cultures` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,

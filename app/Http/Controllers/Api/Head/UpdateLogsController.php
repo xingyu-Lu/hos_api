@@ -16,6 +16,10 @@ class UpdateLogsController extends Controller
     {
         $data = [
             [
+                'content' => '领导团队重构等等',
+                'timestamp' => '2022-06-23',
+            ],
+            [
                 'content' => '历任院长、历史照片图片加预览等等',
                 'timestamp' => '2022-05-25',
             ],

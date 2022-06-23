@@ -55,6 +55,9 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
         Route::apiResource('briefs', 'BriefsController');
 
         // 领导团队
+        Route::put('leaderNews/status', 'LeaderNewsController@status')->name('leaderNews.status');
+        Route::apiResource('leaderNews', 'LeaderNewsController');
+
         Route::put('leaders/status', 'LeadersController@status')->name('leaders.status');
         Route::get('leaders/srclist', 'LeadersController@srclist')->name('leaders.srclist');
         Route::apiResource('leaders', 'LeadersController');

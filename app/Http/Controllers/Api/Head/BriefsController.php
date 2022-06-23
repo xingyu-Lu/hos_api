@@ -9,6 +9,7 @@ use App\Models\History;
 use App\Models\HistoryLeader;
 use App\Models\HistoryPic;
 use App\Models\Leader;
+use App\Models\LeaderNew;
 use App\Models\Organization;
 use App\Models\UploadFile;
 use Illuminate\Http\Request;
@@ -51,22 +52,24 @@ class BriefsController extends Controller
             $where_arr = [1];
         }
 
-        $leader = Leader::whereIn('status', $where_arr)->get()->toArray();
+        $leader = LeaderNew::whereIn('status', $where_arr)->first();
 
-        foreach ($leader as $key => &$value) {
-            $file = UploadFile::find($value['file_id']);
-            $url = '';
-            if ($file) {
-                $url = Storage::disk('public')->url($file['file_url']);
-            }
-            $value['img_url'] = $url;
+        // $leader = Leader::whereIn('status', $where_arr)->get()->toArray();
 
-            $value['position'] = explode(',', $value['position']);
-            $value['professional'] = explode(',', $value['professional']);
-        }
-        unset($value);
+        // foreach ($leader as $key => &$value) {
+        //     $file = UploadFile::find($value['file_id']);
+        //     $url = '';
+        //     if ($file) {
+        //         $url = Storage::disk('public')->url($file['file_url']);
+        //     }
+        //     $value['img_url'] = $url;
 
-        $leader = array_chunk($leader, 6);
+        //     $value['position'] = explode(',', $value['position']);
+        //     $value['professional'] = explode(',', $value['professional']);
+        // }
+        // unset($value);
+
+        // $leader = array_chunk($leader, 6);
 
         return responder()->success($leader);
     }
