@@ -513,3 +513,17 @@ CREATE TABLE `syy_file_employees` (
   `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='员工文件(云盘)';
+
+DROP TABLE IF EXISTS `syy_epidemic_controls`;
+CREATE TABLE `syy_epidemic_controls` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `attachment_id` varchar(20) NOT NULL DEFAULT '' COMMENT '附件id',
+  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '标题',
+  `content` text not null comment '内容',
+  `release_time` int(11) NOT NULL DEFAULT 0 COMMENT '发布时间',
+  `num` int(11) NOT NULL DEFAULT 0 COMMENT '访问次数',
+  `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='疫情防控';

@@ -3,20 +3,18 @@
 namespace App\Http\Controllers\Api\Head;
 
 use App\Http\Controllers\Controller;
-use App\Models\Party;
+use App\Models\EpidemicControl;
 use Illuminate\Http\Request;
 
-class PartysController extends Controller
+class EpidemicControlsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $params = $request->all();
-
         $where_arr = [];
 
         $user = auth('h-api')->user();
@@ -26,17 +24,9 @@ class PartysController extends Controller
             $where_arr = [1];
         }
 
-        $party = Party::whereIn('status', $where_arr);
+        $epidemic_controls = EpidemicControl::whereIn('status', $where_arr)->paginate(10);
 
-        if (isset($params['type'])) {
-            $party = $party->where('type', $params['type']);
-        }
-
-        $party = $party->orderBy('id', 'desc')->paginate(10);
-
-        // $party = Party::whereIn('status', $where_arr)->where('type', $params['type'])->paginate(10);
-
-        return responder()->success($party);
+        return responder()->success($epidemic_controls);
     }
 
     /**
@@ -56,10 +46,8 @@ class PartysController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show($id)
     {
-        $params = $request->all();
-
         $where_arr = [];
 
         $user = auth('h-api')->user();
@@ -69,13 +57,13 @@ class PartysController extends Controller
             $where_arr = [1];
         }
 
-        $party = Party::whereIn('status', $where_arr)->where('id', $params['id'])->first();
+        $epidemic_control = EpidemicControl::whereIn('status', $where_arr)->where('id', $id)->first();
 
-        $party->num += 1;
+        $epidemic_control->num += 1;
 
-        $party->save();
+        $epidemic_control->save();
 
-        return responder()->success($party);
+        return responder()->success($epidemic_control);
     }
 
     /**

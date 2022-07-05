@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api\Head;
 
 use App\Http\Controllers\Controller;
+use App\Models\EpidemicControl;
 use App\Models\Expert;
 use App\Models\Job;
 use App\Models\News;
+use App\Models\Party;
 use App\Models\PatientService;
 use App\Models\Rotate;
 use App\Models\TechnicalOffice;
@@ -151,6 +153,22 @@ class IndexsController extends Controller
         // 健康促进
         $patient_service = PatientService::where('type', 9)->whereIn('status', $where_arr)->orderBy('id', 'desc')->skip(0)->take(10)->get();
         $data['patient_service'] = $patient_service;
+
+        // 一线党建
+        $partys = Party::whereIn('status', $where_arr)->orderBy('id', 'desc')->skip(0)->take(10)->get()->toArray();
+        $data['party']['data'] = $partys;
+        $data['party']['is_more'] = 0;
+        if (count($partys) >= 10) {
+            $data['party']['is_more'] = 1;
+        }
+
+        // 疫情防控
+        $epidemic_controls = EpidemicControl::whereIn('status', $where_arr)->orderBy('id', 'desc')->skip(0)->take(10)->get()->toArray();
+        $data['epidemic_control']['data'] = $epidemic_controls;
+        $data['epidemic_control']['is_more'] = 0;
+        if (count($epidemic_controls) >= 10) {
+            $data['epidemic_control']['is_more'] = 1;
+        }
 
         return responder()->success($data);
     }

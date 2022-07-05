@@ -302,6 +302,9 @@ Route::namespace('Api\Head')->prefix('head')->group(function () {
         // 搜索
         Route::get('searchs/index', 'SearchsController@index')->name('searchs.index');
 
+        // 疫情防控
+        Route::apiResource('epidemicControls', 'EpidemicControlsController');        
+
         // 更新
         Route::get('updatelogs/index', 'UpdateLogsController@index')->name('updatelogs.index');
 
