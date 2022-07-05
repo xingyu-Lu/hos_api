@@ -172,6 +172,10 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
         Route::put('fileEmployees/status', 'FileEmployeesController@status')->name('fileEmployees.status');
         Route::apiResource('fileEmployees', 'FileEmployeesController');        
 
+        // 疫情防控
+        Route::put('epidemicControls/status', 'EpidemicControlsController@status')->name('epidemicControls.status');
+        Route::apiResource('epidemicControls', 'EpidemicControlsController');
+
         //文件下载
         Route::get('files/down', 'FilesController@down')->name('files.down');
         //文件上传
