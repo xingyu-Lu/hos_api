@@ -49,6 +49,14 @@ class TechnicalOfficeColumnsController extends Controller
             $column_set = TechnicalOfficeColumnSet::find($value['column_id']);
 
             $value['column_type_name'] = $column_set['type'] == 0 ? '图文或视频' : '仅图';
+
+            $healthPromotion = PatientService::where('office_column_id', $value['id'])->first();
+
+            if ($healthPromotion) {
+                $value['is_health_promotion_set'] = 1;
+            } else {
+                $value['is_health_promotion_set'] = 0;
+            }
         }
 
         return responder()->success($office_columns);
