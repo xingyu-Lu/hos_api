@@ -27,7 +27,7 @@ class NewsController extends Controller
             $where[] = ['title', 'like', '%' . $params['title'] . '%'];
         }
 
-        $news = News::where($where)->orderBy('is_recommend', 'desc')->orderBy('id', 'desc')->paginate(10);
+        $news = News::where($where)->orderBy('is_recommend', 'desc')->orderBy('status', 'desc')->orderBy('id', 'desc')->paginate(10);
 
         foreach ($news as $key => $value) {
             $file = UploadFile::find($value['file_id']);
