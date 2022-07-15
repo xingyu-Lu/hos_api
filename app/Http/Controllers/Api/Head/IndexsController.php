@@ -97,7 +97,7 @@ class IndexsController extends Controller
             $value['title'] = mb_substr($value['title'], 0, 20) . '...';
         }
         unset($value);
-        $news = array_chunk($news, 3);
+        $news = array_chunk($news, 2);
         $data['news_xw'] = $news;
 
         // $news_0_1 = News::where('type', 0)->whereIn('status', $where_arr)->orderBy('is_recommend', 'desc')->orderBy('release_time', 'desc')->orderBy('id', 'desc')->skip(2)->take(4)->get();
