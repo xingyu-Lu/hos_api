@@ -38,6 +38,33 @@ class RegistersController extends Controller
             throw new BaseException(['msg' => '手机号已注册']);
         }
 
+        // 弱密码检查
+        // 长度6-16位
+        if (strlen($params['password']) > 16 || strlen($params['password']) < 6) {
+            throw new BaseException(['msg' => '密码长度需为6~16位']);
+        }
+
+        //1) 是否包含小写字母
+        $pattern = '/[a-z]+/';
+        $res = preg_match($pattern, $params['password']);
+        if (!$res) {
+            throw new BaseException(['msg' => '密码未包含小写字母']);
+        }
+
+        //2) 是否包含大写字母
+        $pattern = '/[A-Z]+/';
+        $res = preg_match($pattern, $params['password']);
+        if (!$res) {
+            throw new BaseException(['msg' => '密码未包含大写字母']);
+        }
+
+        //3) 是否包含数字
+        $pattern = '/\d+/';
+        $res = preg_match($pattern, $params['password']);
+        if (!$res) {
+            throw new BaseException(['msg' => '密码未包含数字']);
+        }
+
         $code = Code::where('code', $params['code'])->where('status', 1)->orderBy('id', 'desc')->first();
 
         if (empty($code)) {
